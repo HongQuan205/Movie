@@ -46,9 +46,9 @@ const headMenu = [
     }
 ]
 
-export default function Header(){
+export default function Header() {
     const {currentUser} = useSelector((state) => state.authReducer)
-    const {isLoadingBackToHome = useSelector((state) => state.lazyReducer)}
+    const {isLoadingBackToHome} = useSelector((state) => state.lazyReducer)
     const dispatch = useDispatch()
     let location = useLocation()
     let history = useHistory()
@@ -57,6 +57,7 @@ export default function Header(){
     const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
     const classes = useStyles({isDesktop, openDrawer})
 
+    //nếu đang mở drawer mà chuyển sang màn hình lớn thì phải tự đóng lại
     useEffect(() =>{
         if(isDesktop){
             if(openDrawer)
@@ -64,6 +65,148 @@ export default function Header(){
                 setOpenDrawer(false)
             }
         }
-    })
+    },[isDesktop])
 
+    useEffect( () =>{
+        if(!isLoadingBackToHome){
+            setTimeout(() =>{
+                scroller.scrollTo(location.state,{
+                    duration: 800,
+                    smooth: 'easeInOutQuart'
+                })
+            },200)
+        }
+    },[isLoadingBackToHome])
+
+    const handleLogout = () =>{
+        setOpenDrawer(false)
+        dispatch({type: LOGOUT})
+    }
+
+    const handleLogin = () =>{
+        history.push("/dangnhap",location.pathname)
+    }
+
+    const handleRegister = () =>{
+        history.push("/dangky", location.pathname)
+    }
+
+    const handleClickLogo = () =>{
+        if(location.pathname === "/"){
+            dispatch(getMovieList())
+            dispatch(getTheaters())
+            return
+        }
+        dispatch({type: LOADING_BACKTO_HOME})
+        setTimeout(() =>{
+            history.push("/","")
+        }, 50)
+    }
+
+    const handleClickLink = (id) =>{
+        setOpenDrawer(false)
+        if(location.pathname === "/"){
+            scroller.scrollTo(id,{
+                duration: 800,
+                smooth: 'easeInOutQuart'
+            })
+        } else {
+            dispatch({type: LOADING_BACKTO_HOME})
+            setTimeout(() =>{
+                history.push("/",id)
+            }, 50)
+        }
+    }
+
+    const handleUser = () =>{
+        history.push("/taikhoan")
+        setOpenDrawer(false)
+    }
+
+    const handleDrawerOpen = () =>{
+        setOpenDrawer(true)
+    }
+
+    const handleDrawerClose = () => {
+        setOpenDrawer(false);
+      };
+
+      return(
+        <div className= {classes.root}>
+            <AppBar position='fixed' classes={{root: clsx(classes.appBar, { [classes.appBarShift] : openDrawer })}} color= 'default'>
+                <Toolbar className={classes.spaceBetween}>
+
+
+                    <div className={classes.logo} onClick={handleClickLogo}>
+                        <img src ="/img/headTixLogo.png" alt = "logo" style={{height: 50}} />
+                    </div>
+
+                    <div className={classes.linkTobody}>
+                        <Grid  justifyContent = "space-between" container direction='row' alignItems='center'>
+                            {headMenu.map((link) => {
+                                <span key={link.id} className={classes.link} onClick={() => handleClickLink(link.id)}>{link.nameLink}</span>
+                            })}
+                        </Grid>
+                    </div>
+
+                {/* user account */}
+                <div className={classes.user}>
+                    {currentUser ?
+                    <List disablePadding className={classes.auth}>
+                        <ListItem button classes={{root: clsx(classes.itemAuth, classes.divide)}} onClick = {handleUser}>
+                            <ListItemIcon classes={{root: classes.icon}}>
+                                <Avatar alt = "avatar" className={classes.avatar} src = {FAKE_AVATAR} />
+                            </ListItemIcon>
+                            <ListItemText primary = {currentUser?.hoTen}/>
+                        </ListItem>
+                        <ListItem button classes={{root: classes.itemAuth}} onClick = {handleLogout}>
+                            <ListItemText primary />
+                        </ListItem>
+                    </List>
+                    :
+                    <List disablePadding className={classes.auth}>
+                        <ListItem button classes={{root: clsx(classes.itemAuth, classes.divide)}} onClick ={handleLogin}>
+                            <ListItemIcon classes={{root: classes.icon}}>
+                                <AccountCircleIcon fontSize = "large" />
+                            </ListItemIcon>
+                            <ListItemText primary = "Đăng nhập"/>
+                        </ListItem>
+                        <ListItem button classes={{root: classes.itemAuth}} onClick = {handleRegister}>
+                            <ListItemText primary= "Đăng Ký"/>
+                        </ListItem>
+                    </List>
+                    }
+                </div>
+
+                {/* menuIcon  */}
+                <div className={classes.menuIcon}>
+                    <IconButton 
+                    color = "inherit" edge= "end" onClick={handleDrawerOpen} classes={{root: classes}}>
+                        <MenuIcon/>
+                    </IconButton>
+                </div>
+
+                </Toolbar>
+            </AppBar>   
+
+        {/* content open menu*/}
+        <Drawer className={classes.drawer} anchor='right' 
+        onClose={handleDrawerClose} 
+        open= {openDrawer}
+        classes={{
+            paper: classes.drawerPaper
+        }}
+        transitionDuration={300}
+         >
+        <div className={classes.drawerHeader}>
+            {
+                currentUser ? 
+                <ListItem button classes={{root: clsx(classes.itemAuth,classes.divide,classes.hover)}}>
+
+                </ListItem>
+            }
+        </div>
+        </Drawer>
+        </div>
+      )
 }
