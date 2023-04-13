@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from '@mui/material/styles';
 
 const currentUser = localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user"))
@@ -23,7 +23,7 @@ export const DATE_END_SAPCHIEU = new Date().toISOString()?.slice(0, 10);
 
 export const arrayGiaVe = [75000, 100000, 120000, 150000];
 
-export const theme = createMuiTheme({
+export const theme = createTheme({
   breakpoints: {
     values: {
       xs: 0,

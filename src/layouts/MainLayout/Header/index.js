@@ -9,20 +9,20 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/styles'
+import ListItemText from '@mui/material/ListItemText'
 import Grid from '@material-ui/core/Grid';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useSelector, useDispatch } from 'react-redux';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import { useHistory, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Avatar from '@material-ui/core/Avatar';
 import { scroller } from 'react-scroll'
 
 import {LOGOUT} from '../../../reducers/constants/Auth'
 import useStyles from './style'
-import { FAKE_AVATAR } from '../../../constant.js/config';
+import { FAKE_AVATAR } from '../../../constant/config';
 import { LOADING_BACKTO_HOME } from '../../../reducers/constants/Lazy';
 import { getMovieList } from '../../../reducers/actions/Movie';
 import { getTheaters } from '../../../reducers/actions/Theater';
@@ -51,7 +51,7 @@ export default function Header() {
     const {isLoadingBackToHome} = useSelector((state) => state.lazyReducer)
     const dispatch = useDispatch()
     let location = useLocation()
-    let history = useHistory()
+    let history = useNavigate()
     const theme = useTheme()
     const [openDrawer,setOpenDrawer] = useState(false)
     const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
@@ -202,10 +202,30 @@ export default function Header() {
             {
                 currentUser ? 
                 <ListItem button classes={{root: clsx(classes.itemAuth,classes.divide,classes.hover)}}>
-
+                    <ListItemIcon classes={{root: classes.icon}}>
+                        <Avatar alt="avatar" className={classes.avatar} src={FAKE_AVATAR} />
+                    </ListItemIcon>
+                    <ListItemText className = {classes.username} primary={currentUser?.hoTen} />
+                </ListItem>
+                :
+                <ListItem button classes={{root:classes.listItem}} onClick= {handleLogin}>
+                    <ListItemIcon classes={{root: classes.icon}}>
+                        <AccountCircleIcon fontSize = "large"/>
+                    </ListItemIcon>
+                    <span className={classes.link} style={{fontWeight: 500}}>Đăng nhập</span>
                 </ListItem>
             }
+            <IconButton classes={{root: classes.listItem}} onClick={handleDrawerClose}>
+                <ChevronRightIcon/>
+            </IconButton>
         </div>
+        <List>
+            {
+                headMenu.map((link) => {
+                    <span key={link.id} className={classes.itemMenu} onClick={() => handleClickLink(link.id)}>{link.nameLink}</span>
+                })
+            }
+        </List>
         </Drawer>
         </div>
       )
