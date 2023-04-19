@@ -1,0 +1,42 @@
+.carousel{
+    &-image{
+        display: block;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        position: relative;
+    }
+    .slick-arrow{
+        position: absolute;
+        top: 50%;
+        font-size: 50px;
+        font-weight: bold;
+        cursor: pointer;
+        color: #d8d8d8;
+        &:focus{
+            color: #d8d8d8;
+            transition: all .5s;
+        }
+        &:hover{
+            color: #fb4226 ;
+            transition: all .5s;
+        }
+        &::before{
+            content: '';
+        }
+
+    }
+    .slick-next{
+        right: 2%;
+        z-index: 1;
+        width: fit-content;
+        height: fit-content;
+    }
+    .slick-prev{
+        left: 2%;
+        z-index: 1;
+        width: fit-content;
+        height: fit-content;
+    }
+}
+

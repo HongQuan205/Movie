@@ -1,21 +1,22 @@
-import { makeStyles } from '@mui/styles';
 import Header from "./Header";
+import {Route} from  "react-router-dom"
+import ScrollToTop from "react-scroll-up";
+import "./styles.less";
 
-const useStyles = makeStyles((theme) => (
-    {
-        top: {
-            marginTop: 64,
-            [theme.breakpoints.down("xs")] : { marginTop:56 }
-        },
-    }
-))
-
-export default function MainLayout(props){
-    const classes = useStyles()
-
-    return (
-        <div>
-           Quan
-        </div>
-    )
+export default function MainLayout(props) {
+  const { Component, ...restProps } = props;
+  return (
+    <Route
+      {...restProps}
+      render={(routerProps) => {
+        return (
+          <>
+             <Header {...routerProps} />
+            <Component {...routerProps} />
+            <ScrollToTop/> 
+          </>
+        );
+      }}
+    ></Route>
+  );
 }

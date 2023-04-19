@@ -1,15 +1,14 @@
-import { Suspense, lazy } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Test from "./layouts/Test";
-const MainLayout = lazy(() => import("./layouts/MainLayout"));
+import { lazy } from "react";
+import { BrowserRouter,Switch,Routes} from "react-router-dom";
+import "antd/dist/reset.css";
+import MainLayout from "./layouts/MainLayout";
+import Homepage from "./pages/Homepage";
 function App() {
   return (
     <BrowserRouter>
-      <Suspense>
-        <Routes>
-          <Route exact path="/" element = {<MainLayout/>} />
-        </Routes>
-      </Suspense>
+      <Switch>
+        <MainLayout exact path="/" Component = {Homepage}/>
+      </Switch>
     </BrowserRouter>
   );
 }
