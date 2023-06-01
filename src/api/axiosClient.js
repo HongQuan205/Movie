@@ -8,8 +8,9 @@ axiosClient.interceptors.request.use((config) =>{
     const user = localStorage.getItem('user')
     if(user) {
         const {accessToken} = JSON.parse(user)
-        config.headers.common.Authorization = `Bearer ${accessToken}`
+        config.headers.Authorization = `Bearer ${accessToken}`
     }
+    return config
 })
 
 export default axiosClient

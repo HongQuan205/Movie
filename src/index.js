@@ -4,14 +4,12 @@ import App from './App';
 import {Provider} from 'react-redux'
 import rootReducer from './reducers';
 import thunk from 'redux-thunk'
-import {applyMiddleware, compose, createStore} from 'redux'
+import {applyMiddleware, createStore} from 'redux'
 
-const enhanced = compose(
-  applyMiddleware(thunk)
-)
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
-const store = createStore(rootReducer,enhanced)
+const store = createStore(rootReducer,applyMiddleware(thunk))
 
 
 root.render(
