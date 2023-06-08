@@ -1,9 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import CarouselPage from "./Carousel";
-import SimpleTab from "./Showtime";
 import { useEffect } from "react";
 import { getMovieList } from "../../reducers/actions/Movie";
-
+import Showtime from "./Showtime";
 
 export default function Homepage(){
 
@@ -19,8 +18,7 @@ export default function Homepage(){
     return (
        <div>
          <CarouselPage/>
-         <SimpleTab/>
-
+         <Showtime/>
        </div>
     )
 }

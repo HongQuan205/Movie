@@ -2,10 +2,10 @@ import { Carousel } from "antd";
 import { useDispatch } from "react-redux";
 import homeCarouselData from "../../../constant/homeCarouselData";
 import {RightCircleOutlined ,LeftCircleOutlined} from '@ant-design/icons';
-import './carousel.less'
 import BtnPlay from "../../../components/BtnPlay";
-export default function CarouselPage() {
-
+import MovieItem from "./MovieItem";
+export default function MovieList(props) {
+  console.log("ABC", props.movieList)
   const  NextArrow = props => {
     const { currentSlide, slideCount, onClick ,...restProps } = props
     return (
@@ -41,15 +41,15 @@ export default function CarouselPage() {
     <div>
       <BtnPlay/>
       <Carousel  arrows {...settings}  className="carousel" >
-        {homeCarouselData.map((banner, index) => {
-          return (
-            <>
-              <div key={index} className="carousel-container">
-                  <img src={banner.hinhAnh} alt={banner.tenPhim} className="carousel-image"/>
-              </div>
-            </>
-          );
-        })}
+            {homeCarouselData.map((banner, index) => {
+            return (
+                <>
+                <div key={index} className="carousel-container">
+                  <MovieItem movieList = {props.movieList} />
+                </div>
+                </>
+            );
+            })}
       </Carousel>
     </div>
   );

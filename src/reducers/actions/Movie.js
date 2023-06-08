@@ -10,7 +10,6 @@ import {
 
   export const getMovieList = () =>{
     return async(dispatch) =>{
-        const result = await movieApi.getMovieList()
         dispatch({
             type: GET_MOVIE_LIST_REQUEST
         })
@@ -20,6 +19,7 @@ import {
                 type: GET_MOVIE_LIST_SUCCESS,
                 payload: {data: result.data}
             })
+            return result
         } catch (error) {
             dispatch({
                 type: GET_MOVIE_LIST_FAIL,
