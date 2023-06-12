@@ -3,7 +3,6 @@ import CarouselPage from "./Carousel";
 import { useEffect } from "react";
 import { getMovieList } from "../../reducers/actions/Movie";
 import Showtime from "./Showtime";
-
 export default function Homepage(){
 
   const dispatch = useDispatch();
@@ -14,11 +13,11 @@ export default function Homepage(){
       dispatch(getMovieList())
     }
   }, [])
-
     return (
        <div>
          <CarouselPage/>
-         <Showtime/>
+          <Showtime/>
+
        </div>
     )
 }

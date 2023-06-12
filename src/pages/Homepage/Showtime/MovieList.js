@@ -1,56 +1,50 @@
-import { Carousel } from "antd";
-import { useDispatch } from "react-redux";
-import homeCarouselData from "../../../constant/homeCarouselData";
-import {RightCircleOutlined ,LeftCircleOutlined} from '@ant-design/icons';
-import BtnPlay from "../../../components/BtnPlay";
-import MovieItem from "./MovieItem";
+import Slider from "react-slick";
+import React, { Component } from "react";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 export default function MovieList(props) {
-  console.log("ABC", props.movieList)
-  const  NextArrow = props => {
-    const { currentSlide, slideCount, onClick ,...restProps } = props
+
+  const SampleNextArrow = (props)  =>{
+    const { className, style, onClick } = props;
     return (
-     <button {...restProps} className={
-      "slick-next slick-arrow" + (currentSlide === slideCount -1 ? " slick-disabled": "")
-     } aria-hidden="true"
-     aria-disabled={currentSlide === 0 ? true : false}
-     type="button" onClick={onClick}  > <RightCircleOutlined/></button>
-    )
+      <div
+        className={className}
+        style={{ ...style, display: "block", background: "red" }}
+        onClick={onClick}
+      />
+    );
   }
-
-  const PrevArrow = props => {
-    const { currentSlide, slideCount, onClick ,...restProps } = props
+  
+  const SamplePrevArrow= (props)  =>{
+    const { className, style, onClick } = props;
     return (
-     <button {...restProps} className={
-      "slick-prev slick-arrow" + (currentSlide === 0 ? " slick-disabled":"")
-     } 
-     aria-hidden="true"
-     aria-disabled={currentSlide === 0 ? true : false}
-     type="button" onClick={onClick}> <LeftCircleOutlined />
-     </button>
-    )
+      <div
+        className={className}
+        style={{ ...style, display: "block", background: "green" }}
+        onClick={onClick}
+      />
+    );
   }
 
-  const settings = {
-    dotPosition:  "bottom",
-    arrows: true,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
-  }
-
-  return (
-    <div>
-      <BtnPlay/>
-      <Carousel  arrows {...settings}  className="carousel" >
-            {homeCarouselData.map((banner, index) => {
-            return (
-                <>
-                <div key={index} className="carousel-container">
-                  <MovieItem movieList = {props.movieList} />
-                </div>
-                </>
-            );
-            })}
-      </Carousel>
-    </div>
-  );
+    const settings = {
+      dots: true,
+      infinite: true,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      nextArrow: <SampleNextArrow />,
+      prevArrow: <SamplePrevArrow />
+    };
+    const renderMovieList = () =>{
+      return props.data.map((el,index) =>{
+        return <div key={index}>{el.tenPhim}</div>
+      })
+    }
+    return (
+      <div>
+        <h2>Custom Arrows</h2>
+        <Slider {...settings}>
+          {renderMovieList()}
+        </Slider>
+      </div>
+    );
 }
