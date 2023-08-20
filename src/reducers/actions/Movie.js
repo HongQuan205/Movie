@@ -10,9 +10,9 @@ import {
 
   export const getMovieList = () =>{
     return async(dispatch) =>{
-        dispatch({
-            type: GET_MOVIE_LIST_REQUEST
-        })
+        // dispatch({
+        //     type: GET_MOVIE_LIST_REQUEST
+        // })
         try {
             const result = await movieApi.getMovieList()
             dispatch({

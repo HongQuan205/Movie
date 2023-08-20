@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {Tabs} from 'antd'
 import { useSelector } from 'react-redux'
 import './showtime.less'
-import MovieList from './MovieList'
+import MovieList from './MoviList/MovieList'
 export default function Showtime(){
 
     const [stateMovieList,setStateMovieList] = useState({
@@ -22,6 +22,8 @@ export default function Showtime(){
           comingMovieList: comingMovieList
         })
     }, [movieList])
+
+    
     return   <Tabs
     defaultActiveKey="1"
     items={[

@@ -2,6 +2,8 @@ import Slider from "react-slick";
 import React, { Component } from "react";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import '../MoviList/style.less'
+import MovieItem from "../MovieItem";
 export default function MovieList(props) {
 
   const SampleNextArrow = (props)  =>{
@@ -34,11 +36,13 @@ export default function MovieList(props) {
       nextArrow: <SampleNextArrow />,
       prevArrow: <SamplePrevArrow />
     };
+
     const renderMovieList = () =>{
       return props.data.map((el,index) =>{
-        return <div key={index}>{el.tenPhim}</div>
+        return <MovieItem movie = {el} />
       })
     }
+
     return (
       <div>
         <h2>Custom Arrows</h2>

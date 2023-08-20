@@ -1,3 +1,4 @@
+
 import { useDispatch, useSelector } from "react-redux";
 import CarouselPage from "./Carousel";
 import { useEffect } from "react";
@@ -17,7 +18,6 @@ export default function Homepage(){
        <div>
          <CarouselPage/>
           <Showtime/>
-
        </div>
     )
 }
