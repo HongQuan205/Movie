@@ -2,6 +2,7 @@
 
 .film{
     .film_img{
+        position: relative;
         .film_poster{
             .film_overlay{
                 cursor: pointer;
@@ -15,10 +16,56 @@
     }
 }
 
+.film_item{
+    cursor: pointer;
+    padding: 7px;
+}
 .film_overlay{
     background-repeat: no-repeat;
     background-size: cover;
     background-position:  center;
     padding-top:"147.9%" ;
     border-radius: 4;
+}
+
+.film_name{
+    min-height: 100px;
+}
+
+.film .film_content .film_name .name {
+    font-weight: 500;
+    height: 42px;
+    max-height: 42px;
+    font-size: 16px;
+    color: #000;
+    line-height: 22px;
+    margin-bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+ .film .film_content{
+    position: relative;
+    padding: 10px;
+}
+ 
+.film .film_content .film_name .name p {
+    margin-bottom: 0px;
+}
+
+.film .film_content .film_name .name .c18
+{
+    font-size: 14px;
+    background-color: #fb4226;
+    border-radius: 4px;
+    padding: 1px 5px 0px 5px;
+    color: #fff;
+    min-width: 33px;
+    text-align: center;
+    display: inline-block;
+    margin-right: 8px;
+    line-height: 19px;
 }

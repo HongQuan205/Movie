@@ -24,7 +24,7 @@ export default function Showtime(){
     }, [movieList])
 
     
-    return   <Tabs
+    return   <Tabs 
     defaultActiveKey="1"
     items={[
       {
@@ -34,7 +34,7 @@ export default function Showtime(){
       },
       {
         label: 'Sắp chiếu',
-        key: '3',
+        key: '2',
         children: <MovieList data = {stateMovieList.comingMovieList} />,
       },
     ]}

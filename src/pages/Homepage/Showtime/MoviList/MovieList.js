@@ -2,7 +2,7 @@ import Slider from "react-slick";
 import React, { Component } from "react";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import '../MoviList/style.less'
+import './style.less'
 import MovieItem from "../MovieItem";
 export default function MovieList(props) {
 
@@ -11,7 +11,7 @@ export default function MovieList(props) {
     return (
       <div
         className={className}
-        style={{ ...style, display: "block", background: "red" }}
+        style={{ background: "#d8d8d8", fontSize:"30px",display: "block" }}
         onClick={onClick}
       />
     );
@@ -22,7 +22,7 @@ export default function MovieList(props) {
     return (
       <div
         className={className}
-        style={{ ...style, display: "block", background: "green" }}
+        style={{ ...style, display: "block", background: "#d8d8d8" }}
         onClick={onClick}
       />
     );
@@ -30,24 +30,32 @@ export default function MovieList(props) {
 
     const settings = {
       dots: true,
+      row:4,
+      slidesPerRow:2,
       infinite: true,
-      slidesToShow: 3,
-      slidesToScroll: 1,
-      nextArrow: <SampleNextArrow />,
+      slidesToShow: 4,
+      slidesToScroll: 4,
+      centerPadding: "60px",
+      speed: 300,
+      nextArrow: <SampleNextArrow/>,
       prevArrow: <SamplePrevArrow />
     };
 
     const renderMovieList = () =>{
       return props.data.map((el,index) =>{
-        return <MovieItem movie = {el} />
+        return <MovieItem key = {index} movie = {el} />
+
       })
     }
 
     return (
-      <div>
-        <h2>Custom Arrows</h2>
-        <Slider {...settings}>
-          {renderMovieList()}
+      <div className="out-class">
+        <Slider {...settings}  style={{
+          margin :"0 auto",
+          width: "80%",
+          maxWidth: "800px"
+        }} className="abcs">
+         {renderMovieList()}
         </Slider>
       </div>
     );
